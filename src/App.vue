@@ -1,17 +1,23 @@
 <template>
-  <div id="app">
-    <CreateTransaction msg="Welcome to Your Vue.js App"/>
-  </div>
+  <b-container class="mb-3">
+    <div id="app">
+      <ul class="nav justify-content-start">
+        <li class="nav-item">
+          <router-link class="nav-link active" :to="{ name: 'transactions-dashboard' }">Transações</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link active" :to="{ name: 'transactions-dashboard' }">Consulta saldo</router-link>
+        </li>
+      </ul>
+      <router-view class="mt-5"/>
+    </div>
+  </b-container>
 </template>
 
 <script>
-import CreateTransaction from '@/components/CreateTransaction.vue'
 
 export default {
   name: 'app',
-  components: {
-    CreateTransaction
-  }
 }
 </script>
 
