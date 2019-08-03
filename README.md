@@ -30,4 +30,4 @@ You need to run the back-end server in order the application to run properly.
 Please refer to https://github.com/thiagosaife/pagarme-api, clone the repo and follow the Readme intructions.
 
 ### Questions?
-You can reach me by e-mail: tsaiferodrigues@gmail.com
+You can reach me by e-mail: <tsaiferodrigues@gmail.com>
