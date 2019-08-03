@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Home from '@/views/Home.vue';
 import Router from 'vue-router';
-import Transactions from '@/routes/transactions/Transactions';
+import Payables from '@/routes/Payables';
+import Transactions from '@/routes/Transactions';
 
 Vue.use(Router);
 
@@ -23,7 +24,7 @@ const mainRoute = [
   },
 ];
 
-const routes = allRoutes.concat(mainRoute, Transactions);
+const routes = allRoutes.concat(mainRoute, Payables, Transactions);
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
