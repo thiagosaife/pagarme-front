@@ -5,10 +5,10 @@
       <b-form-row>
         <b-col>
           <b-form-group>
-            <b-form-input class="mb-3" id="price" v-model="transaction.price"
-              :placeholder="labels.price" />
+            <b-form-input class="mb-3" id="price" v-model.lazy="transaction.price"
+              v-money="formObject.price.mask" :placeholder="formObject.price.label" />
             <b-form-input class="mb-3" id="description" v-model="transaction.description"
-              :placeholder="labels.description" />
+              :placeholder="formObject.description.label" />
             <b-form-select v-model="transaction.selectedMethod" id="payment-methods">
               <option disabled value="">Tipo de transação</option>
               <option v-for="(method, index) in paymentMethods" :key="index"
@@ -21,13 +21,13 @@
         <b-col>
           <b-form-group>
             <b-form-input class="mb-3" id="card-number" v-model="transaction.cardNumber"
-              :placeholder="labels.cardNumber" />
+              v-mask="formObject.cardNumber.mask" :placeholder="formObject.cardNumber.label" />
             <b-form-input class="mb-3" id="card-owner" v-model="transaction.cardOwner"
-             :placeholder="labels.cardOwner" />
+             :placeholder="formObject.cardOwner.label" />
             <b-form-input class="mb-3" id="validity-date" v-model="transaction.cardValidityDate"
-              :placeholder="labels.cardValidityDate" />
-            <b-form-input v-if="isCreditCard" class="mb-3" id="verification-code"
-              v-model="transaction.cardVerificationCode" :placeholder="labels.cardVerificationCode" />
+              v-mask="formObject.cardValidityDate.mask" :placeholder="formObject.cardValidityDate.label" />
+            <b-form-input v-if="isCreditCard" class="mb-3" id="verification-code" v-model="transaction.cardVerificationCode"
+            v-mask="formObject.cardVerificationCode.mask" :placeholder="formObject.cardVerificationCode.label" />
           </b-form-group>
         </b-col>
       </b-form-row>
@@ -42,18 +42,44 @@
 
 <script>
 import TransactionsServices from '@/services/TransactionsServices';
+import { VMoney } from 'v-money';
 
 export default {
   name: 'CreateTransaction',
+  directives: {
+    money: VMoney,
+  },
   data() {
     return {
-      labels: {
-        cardOwner: 'Nome do portador do cartão',
-        cardNumber: 'Número do cartão',
-        cardValidityDate: 'Data de validade do cartão',
-        cardVerificationCode: 'Código de verificação do cartão (CVV)',
-        description: 'Descrição da transação',
-        price: 'Valor da transação',
+      formObject: {
+        cardOwner: {
+          label: 'Nome do portador do cartão',
+        },
+        cardNumber: {
+          label: 'Número do cartão',
+          mask: '#### #### #### ####',
+        },
+        cardValidityDate: {
+          label: 'Data de validade do cartão',
+          mask: '##/##/####',
+        },
+        cardVerificationCode: {
+          label: 'Código de verificação do cartão (CVV)',
+          mask: '###',
+        },
+        description: {
+          label: 'Descrição da transação',
+        },
+        price: {
+          label: 'Valor da transação',
+          mask: {
+            decimal: ',',
+            thousands: '.',
+            prefix: 'R$ ',
+            precision: 2,
+            masked: false,
+          },
+        },
       },
       loading: false,
       paymentMethods: [

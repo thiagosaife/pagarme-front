@@ -6,6 +6,7 @@ import '@/plugins/bootstrap-vue'
 import BootstrapVue from 'bootstrap-vue'
 import router from '@/routes';
 import VueFlashMessage from 'vue-flash-message';
+import VueTheMask from 'vue-the-mask';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -18,6 +19,7 @@ Vue.use(VueFlashMessage, {
     timeout: 15000,
   },
 });
+Vue.use(VueTheMask);
 
 new Vue({
   router,
