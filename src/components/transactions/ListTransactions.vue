@@ -10,6 +10,8 @@
       </thead>
       <tbody>
         <tr v-for="(transaction, index) in getTransactionsList"  :key="index">
+          <td>{{ transaction.paymentDate }}</td>
+          <td>{{ transaction.status }}</td>
           <td>{{ transaction.price }}</td>
           <td>{{ transaction.description }}</td>
           <td>{{ transaction.selectedMethod }}</td>
@@ -52,10 +54,12 @@ export default {
   data() {
     return {
       headings: [
+        'Data do pagamento',
+        'Status',
         'Valor da transação',
         'Descrição da transação',
         'Método de pagamento',
-        'Número do cartão',
+        'Número do cartão (4 últimos dígitos)',
         'Nome do portador do cartão',
         'Data de validade do cartão',
         'Código de verificação do cartão (CVV)',
