@@ -33,7 +33,7 @@
       </b-form-row>
       <b-form-row>
         <b-col>
-          <b-button @click="submitTransaction()" variant="success">Enviar transação</b-button>
+          <b-button @click="submitTransaction()" :disabled="loading" variant="success">Enviar transação</b-button>
         </b-col>
       </b-form-row>
     </b-form>
@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import TransactionsServices from '@/services/TransactionsServices';
+
 export default {
   name: 'CreateTransaction',
   data() {
@@ -53,6 +55,7 @@ export default {
         description: 'Descrição da transação',
         price: 'Valor da transação',
       },
+      loading: false,
       paymentMethods: [
         {
           text: 'Crédito',
@@ -81,7 +84,19 @@ export default {
   },
   methods: {
     submitTransaction() {
-      console.log(this.transaction);
+      this.loading = true;
+      const transactionsApi = new TransactionsServices();
+      transactionsApi.setTransaction(this.transaction)
+        .then(() => {
+          this.loading = false;
+          this.flash('Transação salva com sucesso', 'success');
+        })
+        .catch(err => {
+          const error = Object.assign({}, err);
+          this.loading = false;
+          this.flash(`Ocorreu um erro ao salvar a transação. Motivo:
+            ${error.response.data.message}`, 'error');
+        })
     }
   },
 }
