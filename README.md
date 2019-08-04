@@ -5,7 +5,7 @@ Node and npm installed on your system
 PagarMe - Basic CRUD - Front end
 
 ### Important information
-You MUST run the back-end server in order to run the application properly.
+You MUST run the back-end server in order to run this application properly.
 Please, head to https://github.com/thiagosaife/pagarme-api, clone the repo and follow the Readme instructions.
 
 ## Project setup
