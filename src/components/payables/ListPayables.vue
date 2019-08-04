@@ -9,46 +9,64 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(payable, index) in payablesList"  :key="index">
-          <td>{{ payable.available }}</td>
-          <td>{{ payable.waitingFunds }}</td>
+        <tr>
+          <td>{{ `R$ ${payables.paid}` }}</td>
+          <td>{{ `R$ ${payables.waitingFunds}` }}</td>
         </tr>
       </tbody>
     </table>
+    <div v-if="noData.show" class="alert alert-primary" role="alert">
+      {{ noData.message }}
+    </div>
   </div>
 </template>
 
 <script>
+import TransactionsServices from '@/services/TransactionsServices';
+
 export default {
+  created() {
+    const transactionsApi = new TransactionsServices();
+    transactionsApi.getCredits()
+      .then((res) => {
+        if (!res) {
+          this.noData.show = true;
+          return;
+        }
+        this.payables.waitingFunds = this.formatCurrency(res.fee);
+      })
+      .catch(err => {
+        this.flash(`Ocorreu um erro ao carregar as transações: ${err}`, 'error');
+      });
+    transactionsApi.getDebits()
+      .then((res) => {
+        this.payables.paid = this.formatCurrency(res.fee);
+      })
+      .catch(err => {
+        this.flash(`Ocorreu um erro ao carregar as transações: ${err}`, 'error');
+      });
+  },
   data() {
     return {
       headings: [
         'Disponível',
         'A receber',
       ],
-      payablesList: [
-        {
-          available: 'R$ 123,40',
-          waitingFunds: 'R$ 123,40',
-        },
-        {
-          available: 'R$ 123,40',
-          waitingFunds: 'R$ 123,40',
-        },
-        {
-          available: 'R$ 123,40',
-          waitingFunds: 'R$ 123,40',
-        },
-        {
-          available: 'R$ 123,40',
-          waitingFunds: 'R$ 123,40',
-        },
-        {
-          available: 'R$ 123,40',
-          waitingFunds: 'R$ 123,40',
-        },
-      ],
+      noData: {
+        message: 'Não existe saldo para consulta',
+        show: false,
+      },
+      payables: {
+        paid: '',
+        waitingFunds: '',
+      },
     };
   },
+  methods: {
+    formatCurrency(value) {
+      const currency = value.toFixed(2);
+      return currency.replace('.', ',');
+    },
+  }
 }
 </script>

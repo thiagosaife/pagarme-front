@@ -13,7 +13,7 @@
           <td>{{ transaction.paymentDate }}</td>
           <td>{{ formatStatus(transaction.status) }}</td>
           <td>{{ transaction.price }}</td>
-          <td>{{ `${formatCurrency(transaction.fee)} (${transaction.feeApplied}%)` }}</td>
+          <td>{{ `R$ ${formatCurrency(transaction.fee)} (${transaction.feeApplied}%)` }}</td>
           <td>{{ transaction.description }}</td>
           <td>{{ formatMethod(transaction.selectedMethod) }}</td>
           <td>{{ `**** **** **** ${transaction.cardNumber}` }}</td>
