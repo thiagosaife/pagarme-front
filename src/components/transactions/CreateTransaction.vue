@@ -92,15 +92,7 @@ export default {
           value: 'debit_card',
         },
       ],
-      transaction: {
-        cardOwner: '',
-        cardNumber: '',
-        cardValidityDate: '',
-        cardVerificationCode: '',
-        description: '',
-        price: '',
-        selectedMethod: '',
-      },
+      transaction: {},
     };
   },
   computed: {
@@ -115,6 +107,7 @@ export default {
       transactionsApi.setTransaction(this.transaction)
         .then(() => {
           this.loading = false;
+          this.transaction = {};
           this.flash('Transação salva com sucesso', 'success');
         })
         .catch(err => {
