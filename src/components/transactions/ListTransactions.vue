@@ -24,7 +24,16 @@
 </template>
 
 <script>
+import TransactionsServices from '@/services/TransactionsServices';
+
 export default {
+  created() {
+    const transactionsApi = new TransactionsServices();
+    transactionsApi.getTransactions()
+      .then((res) => {
+        console.log('res =>', res);
+      })
+  },
   data() {
     return {
       headings: [

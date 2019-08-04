@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export class ApiServices {
+class TransactionsServices {
   constructor() {
-    this.apiURL = 'http://localhost:4000';
+    this.apiURL = 'http://localhost:3000';
     this.axios = axios;
   }
 
@@ -11,3 +11,5 @@ export class ApiServices {
     return this.axios.get(path).then(response => response.data);
   }
 }
+
+export default TransactionsServices;
