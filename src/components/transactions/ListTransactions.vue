@@ -20,6 +20,9 @@
         </tr>
       </tbody>
     </table>
+    <div v-if="noData.show" class="alert alert-primary" role="alert">
+      {{ noData.message }}
+    </div>
   </div>
 </template>
 
@@ -31,6 +34,10 @@ export default {
     const transactionsApi = new TransactionsServices();
     transactionsApi.getTransactions()
       .then((res) => {
+        if (!res.length) {
+          this.noData.show = true;
+          return;
+        }
         this.transactionsList = res;
       })
       .catch(err => {
@@ -53,6 +60,10 @@ export default {
         'Data de validade do cartão',
         'Código de verificação do cartão (CVV)',
       ],
+      noData: {
+        message: 'Não existem transações cadastradas',
+        show: false,
+      },
       transactionsList: [],
     };
   },
