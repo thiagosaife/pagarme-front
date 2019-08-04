@@ -7,7 +7,7 @@
           <router-link class="nav-link active" :to="{ name: 'transactions-dashboard' }">Transações</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link active" :to="{ name: 'list-payables' }">Consulta saldo</router-link>
+          <router-link class="nav-link active" :to="{ name: 'list-payables' }">Consultar saldo</router-link>
         </li>
       </ul>
       <router-view class="mt-5"/>
