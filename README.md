@@ -1,4 +1,8 @@
+#Pre-requisites
+Node and npm installed on your system
+
 # pagar-me-front
+PagarMe - Basic CRUD - Front end
 
 ## Project setup
 ```
