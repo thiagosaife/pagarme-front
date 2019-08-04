@@ -9,7 +9,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(transaction, index) in transactionsList"  :key="index">
+        <tr v-for="(transaction, index) in getTransactionsList"  :key="index">
           <td>{{ transaction.price }}</td>
           <td>{{ transaction.description }}</td>
           <td>{{ transaction.selectedMethod }}</td>
@@ -31,8 +31,16 @@ export default {
     const transactionsApi = new TransactionsServices();
     transactionsApi.getTransactions()
       .then((res) => {
-        console.log('res =>', res);
+        this.transactionsList = res;
       })
+      .catch(err => {
+        this.flash(`Ocorreu um erro ao carregar as transações: ${err}`, 'error');
+      });
+  },
+  computed: {
+    getTransactionsList() {
+      return this.transactionsList;
+    },
   },
   data() {
     return {
@@ -45,44 +53,7 @@ export default {
         'Data de validade do cartão',
         'Código de verificação do cartão (CVV)',
       ],
-      transactionsList: [
-        {
-          cardOwner: 'hdakdja',
-          cardNumber: '908908',
-          cardValidityDate: '21/12/2019',
-          cardVerificationCode: '123',
-          description: 'daskldjlasjdla',
-          price: 'R$ 123,40',
-          selectedMethod: 'debit_card',
-        },
-        {
-          cardOwner: 'hdakdja',
-          cardNumber: '908908',
-          cardValidityDate: '21/12/2019',
-          cardVerificationCode: '123',
-          description: 'daskldjlasjdla',
-          price: 'R$ 123,40',
-          selectedMethod: 'debit_card',
-        },
-        {
-          cardOwner: 'hdakdja',
-          cardNumber: '908908',
-          cardValidityDate: '21/12/2019',
-          cardVerificationCode: '123',
-          description: 'daskldjlasjdla',
-          price: 'R$ 123,40',
-          selectedMethod: 'debit_card',
-        },
-        {
-          cardOwner: 'hdakdja',
-          cardNumber: '908908',
-          cardValidityDate: '21/12/2019',
-          cardVerificationCode: '123',
-          description: 'daskldjlasjdla',
-          price: 'R$ 123,40',
-          selectedMethod: 'debit_card',
-        },
-      ],
+      transactionsList: [],
     };
   },
 }

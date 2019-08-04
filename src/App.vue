@@ -1,5 +1,6 @@
 <template>
   <b-container class="mb-3">
+    <flash-message transitionName="flash"></flash-message>
     <div id="app">
       <ul class="nav justify-content-start">
         <li class="nav-item">
